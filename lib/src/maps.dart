@@ -141,6 +141,7 @@ class Maps {
   static const TAIWAN = 'taiwan.svg';
   static const TAJIKISTAN = 'tajikistan.svg';
   static const TANZANIA = 'tanzania.svg';
+    static const USA2 = 'haritadeneme.svg';
   static const THAILAND = 'thailand.svg';
   static const TIBET = 'tibet.svg';
   static const TRINIDAD_AND_TOBAGO = 'trinidadAndTobago.svg';
