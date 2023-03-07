@@ -53,7 +53,7 @@ class CityPainter extends CustomPainter {
     if (city.title == '49') {
       canvas.drawPath(city.path, selectedPen);
     } else if (city.title == '46' || city.title == '43' || city.title == '41') {
-      if (city.title == selectedCity!.title) {
+      if (selectedCity != null && city.title == selectedCity!.title) {
         canvas.drawPath(city.path, selectedPen);
       } else {
         canvas.drawPath(city.path, comingSoonPen);
