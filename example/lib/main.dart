@@ -6,7 +6,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,24 +43,29 @@ class _HomeViewState extends State<HomeView> {
         ],
       ),
       body: Center(
-        child: InteractiveViewer(
-          scaleEnabled: true,
-          panEnabled: true,
-          constrained: true,
-          child: CityPickerMap(
-            key: _mapKey,
-            width: double.infinity,
-            height: double.infinity,
-            map: Maps.TURKEY,
-            onChanged: (city) {
-              setState(() {
-                selectedCity = city;
-              });
-            },
-            actAsToggle: true,
-            dotColor: Colors.white,
-            selectedColor: Colors.lightBlueAccent,
-            strokeColor: Colors.white24,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: InteractiveViewer(
+            scaleEnabled: true,
+            panEnabled: true,
+            constrained: true,
+            child: CityPickerMap(
+              key: _mapKey,
+              width: double.infinity,
+              height: double.infinity,
+              map: Maps.USA,
+              onChanged: (city) {
+                setState(() {
+                  selectedCity = city;
+                });
+              },
+              actAsToggle: true,
+              defaultColor: Colors.red,
+              dotColor: Colors.transparent,
+              comingSoonColor: Colors.amber,
+              selectedColor: Colors.green,
+              strokeColor: Colors.white24,
+            ),
           ),
         ),
       ),

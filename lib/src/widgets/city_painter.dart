@@ -7,6 +7,8 @@ class CityPainter extends CustomPainter {
   final City? selectedCity;
   final Color? strokeColor;
   final Color? selectedColor;
+  final Color? comingSoonColor;
+  final Color? defaultColor;
   final Color? dotColor;
 
   final sizeController = SizeController.instance;
@@ -16,7 +18,9 @@ class CityPainter extends CustomPainter {
   CityPainter(
       {required this.city,
       required this.selectedCity,
+      this.defaultColor,
       this.selectedColor,
+      this.comingSoonColor,
       this.strokeColor,
       this.dotColor});
 
@@ -33,6 +37,17 @@ class CityPainter extends CustomPainter {
       ..strokeWidth = 1.0
       ..style = PaintingStyle.fill;
 
+      final defaultPen = Paint()
+      ..color = defaultColor ?? Colors.red
+      ..strokeWidth = 1.0
+      ..style = PaintingStyle.fill;
+
+      final comingSoonPen = Paint()
+      ..color = comingSoonColor ?? Colors.purple
+      ..strokeWidth = 1.0
+      ..style = PaintingStyle.fill;
+
+
     final redDot = Paint()
       ..color = dotColor ?? Colors.red
       ..strokeWidth = 3.0
@@ -43,8 +58,15 @@ class CityPainter extends CustomPainter {
     _scale = sizeController.calculateScale(size);
     canvas.scale(_scale);
 
-    if (city.id == selectedCity?.id) {
+    if (city.title == '49') {
       canvas.drawPath(city.path, selectedPen);
+    }
+    else if(city.title == '46'){
+            canvas.drawPath(city.path, comingSoonPen);
+
+    }
+    else{
+      canvas.drawPath(city.path, defaultPen);
     }
     canvas.drawCircle(bounds.center, 3.0, redDot);
     canvas.drawPath(city.path, pen);

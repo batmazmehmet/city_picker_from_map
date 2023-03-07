@@ -11,6 +11,8 @@ class CityPickerMap extends StatefulWidget {
   final Function(City? city) onChanged;
   final Color? strokeColor;
   final Color? selectedColor;
+  final Color? comingSoonColor;
+  final Color? defaultColor;
   final Color? dotColor;
   final bool? actAsToggle;
 
@@ -22,6 +24,8 @@ class CityPickerMap extends StatefulWidget {
       this.height,
       this.strokeColor,
       this.selectedColor,
+      this.comingSoonColor,
+      this.defaultColor,
       this.dotColor,
       this.actAsToggle}) : super(key: key);
 
@@ -39,7 +43,7 @@ class CityPickerMapState extends State<CityPickerMap> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_){
       _loadCityList();
     });
   }
@@ -86,6 +90,8 @@ class CityPickerMapState extends State<CityPickerMap> {
         foregroundPainter: CityPainter(
             city: city,
             selectedCity: selectedCity,
+            comingSoonColor: widget.comingSoonColor,
+            defaultColor: widget.defaultColor,
             dotColor: widget.dotColor,
             selectedColor: widget.selectedColor,
             strokeColor: widget.strokeColor),
