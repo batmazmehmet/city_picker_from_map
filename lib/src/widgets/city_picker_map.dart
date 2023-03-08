@@ -94,7 +94,7 @@ if(selectedCity != null) Transform.translate(
   Widget _buildStackItem(City city) {
     return GestureDetector(
       onTapDown: (details) {
-       
+       selectedCity= null;
           localPosition = details.localPosition;
         setState(() {
           
