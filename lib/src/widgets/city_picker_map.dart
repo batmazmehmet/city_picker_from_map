@@ -4,6 +4,7 @@ import '../models/city.dart';
 import '../parser.dart';
 import '../size_controller.dart';
 
+// ignore: must_be_immutable
 class CityPickerMap extends StatefulWidget {
   final double? width;
   final double? height;
@@ -13,6 +14,9 @@ class CityPickerMap extends StatefulWidget {
   final Color? selectedColor;
   final Color? comingSoonColor;
   final Color? defaultColor;
+  final double? dx;
+  final double? dy;
+  final Widget? selectedWindow;
   final Color? dotColor;
   final bool? actAsToggle;
 
@@ -22,7 +26,10 @@ class CityPickerMap extends StatefulWidget {
       required this.onChanged,
       this.width,
       this.height,
+      this.dx,
+      this.dy,
       this.strokeColor,
+      this.selectedWindow,
       this.selectedColor,
       this.comingSoonColor,
       this.defaultColor,
@@ -36,7 +43,7 @@ class CityPickerMap extends StatefulWidget {
 class CityPickerMapState extends State<CityPickerMap> {
   final List<City> _cityList = [];
   City? selectedCity;
-
+  Offset? localPosition;
   final _sizeController = SizeController.instance;
   Size? mapSize;
 
@@ -65,15 +72,33 @@ class CityPickerMapState extends State<CityPickerMap> {
 
   @override
   Widget build(BuildContext context) {
+    print(localPosition.toString());
     return Stack(
       children: [
         for (var city in _cityList) _buildStackItem(city),
+if(selectedCity != null) Transform.translate(
+ offset: Offset(
+  localPosition!.dx -100,
+  localPosition!.dy -125
+ ),
+
+  
+  child: widget.selectedWindow ?? SizedBox())
+
       ],
     );
   }
 
   Widget _buildStackItem(City city) {
     return GestureDetector(
+      onTapDown: (details) {
+       
+          localPosition = details.localPosition;
+        setState(() {
+          
+        });
+        print(details.localPosition.toString());
+      },
       behavior: HitTestBehavior.deferToChild,
       onTap: () => (widget.actAsToggle ?? false)
           ? _toggleButton(city)
