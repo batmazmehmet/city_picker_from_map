@@ -34,7 +34,8 @@ class CityPickerMap extends StatefulWidget {
       this.comingSoonColor,
       this.defaultColor,
       this.dotColor,
-      this.actAsToggle}) : super(key: key);
+      this.actAsToggle})
+      : super(key: key);
 
   @override
   CityPickerMapState createState() => CityPickerMapState();
@@ -50,7 +51,7 @@ class CityPickerMapState extends State<CityPickerMap> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadCityList();
     });
   }
@@ -69,24 +70,22 @@ class CityPickerMapState extends State<CityPickerMap> {
       selectedCity = null;
     });
   }
+
 /*  if (city.title == '49') {
       canvas.drawPath(city.path, selectedPen);
     } else if (city.title == '46' || city.title == '43' || city.title == '41')  */
   @override
   Widget build(BuildContext context) {
-    print(localPosition.toString());
     return Stack(
       children: [
         for (var city in _cityList) _buildStackItem(city),
-if(selectedCity != null) Transform.translate(
- offset: Offset(
-  localPosition!.dx -100,
-  localPosition!.dy -125
- ),
-
-  
-  child: selectedCity != null && (selectedCity!.title == '49' || selectedCity!.title == '46' ||selectedCity!.title == '43' ||selectedCity!.title == '41') ? widget.selectedWindow : SizedBox() )
-
+        if (selectedCity != null)
+          Transform.translate(
+              offset: Offset(localPosition!.dx - 100, localPosition!.dy - 125),
+              child: selectedCity != null &&
+                      (selectedCity!.title == '49' || selectedCity!.title == '46' || selectedCity!.title == '43' || selectedCity!.title == '41')
+                  ? widget.selectedWindow
+                  : SizedBox())
       ],
     );
   }
@@ -94,23 +93,17 @@ if(selectedCity != null) Transform.translate(
   Widget _buildStackItem(City city) {
     return GestureDetector(
       onTapDown: (details) {
-       selectedCity= null;
-          localPosition = details.localPosition;
-        setState(() {
-          
-        });
-        print(details.localPosition.toString());
+        selectedCity = null;
+        localPosition = details.localPosition;
+        setState(() {});
       },
       behavior: HitTestBehavior.deferToChild,
-      onTap: () => (widget.actAsToggle ?? false)
-          ? _toggleButton(city)
-          : _useButton(city),
+      onTap: () => (widget.actAsToggle ?? false) ? _toggleButton(city) : _useButton(city),
       child: CustomPaint(
         child: Container(
           width: widget.width ?? double.infinity,
           height: widget.height ?? double.infinity,
-          constraints: BoxConstraints(
-              maxWidth: mapSize?.width ?? 0, maxHeight: mapSize?.height ?? 0),
+          constraints: BoxConstraints(maxWidth: mapSize?.width ?? 0, maxHeight: mapSize?.height ?? 0),
           alignment: Alignment.center,
         ),
         isComplex: true,
