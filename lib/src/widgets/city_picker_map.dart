@@ -69,7 +69,9 @@ class CityPickerMapState extends State<CityPickerMap> {
       selectedCity = null;
     });
   }
-
+/*  if (city.title == '49') {
+      canvas.drawPath(city.path, selectedPen);
+    } else if (city.title == '46' || city.title == '43' || city.title == '41')  */
   @override
   Widget build(BuildContext context) {
     print(localPosition.toString());
@@ -83,7 +85,7 @@ if(selectedCity != null) Transform.translate(
  ),
 
   
-  child: widget.selectedWindow ?? SizedBox())
+  child: selectedCity != null && (selectedCity!.title == '49' || selectedCity!.title == '46' ||selectedCity!.title == '43' ||selectedCity!.title == '41') ? widget.selectedWindow : SizedBox() )
 
       ],
     );
