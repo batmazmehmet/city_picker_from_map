@@ -83,7 +83,7 @@ class CityPickerMapState extends State<CityPickerMap> {
           Transform.translate(
               offset: Offset(localPosition!.dx - 100, localPosition!.dy - 125),
               child: selectedCity != null &&
-                      (selectedCity!.title == '49' || selectedCity!.title == '46' || selectedCity!.title == '43' || selectedCity!.title == '41')
+                      (selectedCity!.title == '49' )//|| selectedCity!.title == '46' || selectedCity!.title == '43' || selectedCity!.title == '41'
                   ? widget.selectedWindow
                   : SizedBox())
       ],
