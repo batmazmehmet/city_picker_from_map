@@ -10,6 +10,8 @@ class CityPickerMap extends StatefulWidget {
   final double? height;
   final String map;
   final Function(City? city) onChanged;
+  final List<String>? comingSoonStates;
+  final List<String>? alreadyHaveStates;
   final Color? strokeColor;
   final Color? selectedColor;
   final Color? comingSoonColor;
@@ -24,6 +26,8 @@ class CityPickerMap extends StatefulWidget {
       {Key? key,
       required this.map,
       required this.onChanged,
+      this.comingSoonStates,
+      this.alreadyHaveStates,
       this.width,
       this.height,
       this.dx,
@@ -63,6 +67,8 @@ class CityPickerMapState extends State<CityPickerMap> {
       _cityList.addAll(list);
       mapSize = _sizeController.mapSize;
     });
+
+    
   }
 
   void clearSelect() {
@@ -71,9 +77,7 @@ class CityPickerMapState extends State<CityPickerMap> {
     });
   }
 
-/*  if (city.title == '49') {
-      canvas.drawPath(city.path, selectedPen);
-    } else if (city.title == '46' || city.title == '43' || city.title == '41')  */
+  
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -83,7 +87,7 @@ class CityPickerMapState extends State<CityPickerMap> {
           Transform.translate(
               offset: Offset(localPosition!.dx - 100, localPosition!.dy - 125),
               child: selectedCity != null &&
-                      (selectedCity!.title == '49' )//|| selectedCity!.title == '46' || selectedCity!.title == '43' || selectedCity!.title == '41'
+                      ((widget.comingSoonStates!.contains(selectedCity!.title)  || widget.alreadyHaveStates!.contains(selectedCity!.title)))
                   ? widget.selectedWindow
                   : SizedBox())
       ],
@@ -107,8 +111,11 @@ class CityPickerMapState extends State<CityPickerMap> {
           alignment: Alignment.center,
         ),
         isComplex: true,
+        
         foregroundPainter: CityPainter(
             city: city,
+            alreadyHaveStates: widget.alreadyHaveStates,
+            comingSoonStates: widget.comingSoonStates,
             selectedCity: selectedCity,
             comingSoonColor: widget.comingSoonColor,
             defaultColor: widget.defaultColor,

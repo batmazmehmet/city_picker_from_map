@@ -53,6 +53,8 @@ class _HomeViewState extends State<HomeView> {
             panEnabled: true,
             constrained: true,
             child: CityPickerMap(
+              comingSoonStates: ['OH','MD'],
+              alreadyHaveStates: ['CA' ,'TX' ,'TN','GA' ,'NJ'],
               key: _mapKey,
               width: double.infinity,
               height: double.infinity,
@@ -62,6 +64,7 @@ class _HomeViewState extends State<HomeView> {
                   selectedCity = city;
                 });
               },
+              //selectedWindow: Container(height: 30,width: 30, color: Colors.pink,),
               actAsToggle: true,
               defaultColor: Colors.red,
               dotColor: Colors.transparent,
