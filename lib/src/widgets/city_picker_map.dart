@@ -151,8 +151,8 @@ class CityPickerMapState extends State<CityPickerMap> {
     }
     return (widget.markerWidget != null && widget.alreadyHaveStates!.contains(city.title)) ? 
      (selectedCity!=null && index != -1 && widget.selectedMarkerWidget != null ) ?
-      Positioned(top: ortaOffset.dy-30 , left: ortaOffset.dx , child: widget.selectedMarkerWidget!)
-     :Positioned(top: ortaOffset.dy-30 , left: ortaOffset.dx , child: widget.markerWidget!) :SizedBox();
+      Positioned(top: ortaOffset.dy-30 , left: ortaOffset.dx-10, child: widget.selectedMarkerWidget!)
+     :Positioned(top: ortaOffset.dy-30 , left: ortaOffset.dx-10 , child: widget.markerWidget!) :SizedBox();
     
   }
 
