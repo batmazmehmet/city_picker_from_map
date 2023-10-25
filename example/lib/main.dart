@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:city_picker_from_map/city_picker_from_map.dart';
+import 'package:flutter_svg/svg.dart';
 
 void main() {
   runApp(MyApp());
@@ -53,10 +54,10 @@ class _HomeViewState extends State<HomeView> {
             panEnabled: true,
             constrained: true,
             child: CityPickerMap(
-              markerWidget: Container(height: 2,width: 2,color: Colors.black,),
-              selectedMarkerWidget: Container(height: 4,width: 4,color: Colors.blue,),
-              comingSoonStates: [],
-              alreadyHaveStates: ["WA"],
+              markerWidget: Container(height: 20, width: 10, color: Colors.white,),
+              selectedMarkerWidget: Container(height: 20, width: 10, color: Colors.black,),
+                                  comingSoonStates: const ['OH', 'MD', 'TN'],
+                                  alreadyHaveStates: const ['CA', 'TX', 'GA', 'NJ'],
               key: _mapKey,
               width: double.infinity,
               height: double.infinity,

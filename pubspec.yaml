@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_svg: ^2.0.8
   svg_path_parser: ^1.0.0
 
 dev_dependencies:
@@ -20,3 +21,4 @@ dev_dependencies:
 flutter:
   assets:
     - assets/maps/
+    - assets/
