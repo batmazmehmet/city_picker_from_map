@@ -53,8 +53,10 @@ class _HomeViewState extends State<HomeView> {
             panEnabled: true,
             constrained: true,
             child: CityPickerMap(
+              markerWidget: Container(height: 2,width: 2,color: Colors.black,),
+              selectedMarkerWidget: Container(height: 4,width: 4,color: Colors.blue,),
               comingSoonStates: [],
-              alreadyHaveStates: [],
+              alreadyHaveStates: ["WA"],
               key: _mapKey,
               width: double.infinity,
               height: double.infinity,

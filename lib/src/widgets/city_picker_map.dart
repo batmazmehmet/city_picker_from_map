@@ -12,6 +12,7 @@ class CityPickerMap extends StatefulWidget {
   final String map;
   final Function(City? city) onChanged;
   final Widget? markerWidget;
+  final Widget? selectedMarkerWidget;
   final List<String>? comingSoonStates;
   final List<String>? alreadyHaveStates;
   final Color? strokeColor;
@@ -31,6 +32,7 @@ class CityPickerMap extends StatefulWidget {
       this.comingSoonStates,
       this.alreadyHaveStates,
       this.markerWidget,
+      this.selectedMarkerWidget,
       this.width,
       this.height,
       this.dx,
@@ -89,14 +91,15 @@ class CityPickerMapState extends State<CityPickerMap> {
               child: selectedCity != null &&
                       ((widget.comingSoonStates!.contains(selectedCity!.title) || widget.alreadyHaveStates!.contains(selectedCity!.title)))
                   ? widget.selectedWindow
-                  : SizedBox())
+                  : SizedBox()),
+
+      for (var city in _cityList) _buildStackMarkers(city),
       ],
     );
   }
 
   Widget _buildStackItem(City city) {
-    final bounds = city.path.getBounds();
-    Offset ortaOffset = bounds.center;
+
     return Stack(
       children: [
         GestureDetector(
@@ -127,9 +130,20 @@ class CityPickerMapState extends State<CityPickerMap> {
                 strokeColor: widget.strokeColor),
           ),
         ),
-        widget.markerWidget != null ? Positioned(top: ortaOffset.dy - 5, left: ortaOffset.dx - 5, child: widget.markerWidget!) : SizedBox()
+        //widget.markerWidget != null ? Positioned(top: ortaOffset.dy - 5, left: ortaOffset.dx - 5, child: widget.markerWidget!) : SizedBox()
       ],
     );
+  }
+
+  Widget _buildStackMarkers(City city) {
+    final bounds = city.path.getBounds();
+    Offset ortaOffset = bounds.center;
+
+    return (widget.markerWidget != null && widget.alreadyHaveStates!.contains(city.title)) ? 
+     (selectedCity!=null && widget.alreadyHaveStates!.contains(selectedCity!.title) && widget.selectedMarkerWidget != null ) ?
+      Positioned(top: ortaOffset.dy , left: ortaOffset.dx , child: widget.selectedMarkerWidget!)
+     :Positioned(top: ortaOffset.dy , left: ortaOffset.dx , child: widget.markerWidget!) :SizedBox();
+    
   }
 
   void _toggleButton(City city) {
