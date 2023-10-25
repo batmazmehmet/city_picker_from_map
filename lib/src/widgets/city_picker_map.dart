@@ -93,7 +93,7 @@ class CityPickerMapState extends State<CityPickerMap> {
                   ? widget.selectedWindow
                   : SizedBox()),
 
-      for (var city in _cityList) _buildStackMarkers(city),
+      for (int i = 0 ; i< _cityList.length; i++) _buildStackMarkers(_cityList[i],i), 
       ],
     );
   }
@@ -135,12 +135,22 @@ class CityPickerMapState extends State<CityPickerMap> {
     );
   }
 
-  Widget _buildStackMarkers(City city) {
+  Widget _buildStackMarkers(City city,int _gelenIndex) {
     final bounds = city.path.getBounds();
     Offset ortaOffset = bounds.center;
-
+    int index = -1;
+    if(widget.alreadyHaveStates!= null&& selectedCity!=null){
+      for(int i = 0 ; i <widget.alreadyHaveStates!.length; i++ ){
+        if(widget.alreadyHaveStates!.contains(selectedCity!.title)){
+          index =_cityList.indexOf(selectedCity!);
+          if(_gelenIndex != index){
+            index = -1;
+          }
+        }
+      }
+    }
     return (widget.markerWidget != null && widget.alreadyHaveStates!.contains(city.title)) ? 
-     (selectedCity!=null && widget.alreadyHaveStates!.contains(selectedCity!.title) && widget.selectedMarkerWidget != null ) ?
+     (selectedCity!=null && index != -1 && widget.selectedMarkerWidget != null ) ?
       Positioned(top: ortaOffset.dy-30 , left: ortaOffset.dx , child: widget.selectedMarkerWidget!)
      :Positioned(top: ortaOffset.dy-30 , left: ortaOffset.dx , child: widget.markerWidget!) :SizedBox();
     
