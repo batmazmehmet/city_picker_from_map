@@ -53,8 +53,8 @@ class _HomeViewState extends State<HomeView> {
             panEnabled: true,
             constrained: true,
             child: CityPickerMap(
-              comingSoonStates: ['OH','MD'],
-              alreadyHaveStates: ['CA' ,'TX' ,'TN','GA' ,'NJ'],
+              comingSoonStates: [],
+              alreadyHaveStates: [],
               key: _mapKey,
               width: double.infinity,
               height: double.infinity,

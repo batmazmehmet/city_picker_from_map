@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import './city_painter.dart';
 import '../models/city.dart';
 import '../parser.dart';
@@ -10,6 +11,7 @@ class CityPickerMap extends StatefulWidget {
   final double? height;
   final String map;
   final Function(City? city) onChanged;
+  final Widget? markerWidget;
   final List<String>? comingSoonStates;
   final List<String>? alreadyHaveStates;
   final Color? strokeColor;
@@ -28,6 +30,7 @@ class CityPickerMap extends StatefulWidget {
       required this.onChanged,
       this.comingSoonStates,
       this.alreadyHaveStates,
+      this.markerWidget,
       this.width,
       this.height,
       this.dx,
@@ -67,8 +70,6 @@ class CityPickerMapState extends State<CityPickerMap> {
       _cityList.addAll(list);
       mapSize = _sizeController.mapSize;
     });
-
-    
   }
 
   void clearSelect() {
@@ -77,7 +78,6 @@ class CityPickerMapState extends State<CityPickerMap> {
     });
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -87,7 +87,7 @@ class CityPickerMapState extends State<CityPickerMap> {
           Transform.translate(
               offset: Offset(localPosition!.dx - 100, localPosition!.dy - 125),
               child: selectedCity != null &&
-                      ((widget.comingSoonStates!.contains(selectedCity!.title)  || widget.alreadyHaveStates!.contains(selectedCity!.title)))
+                      ((widget.comingSoonStates!.contains(selectedCity!.title) || widget.alreadyHaveStates!.contains(selectedCity!.title)))
                   ? widget.selectedWindow
                   : SizedBox())
       ],
@@ -95,34 +95,40 @@ class CityPickerMapState extends State<CityPickerMap> {
   }
 
   Widget _buildStackItem(City city) {
-    return GestureDetector(
-      onTapDown: (details) {
-        selectedCity = null;
-        localPosition = details.localPosition;
-        setState(() {});
-      },
-      behavior: HitTestBehavior.deferToChild,
-      onTap: () => (widget.actAsToggle ?? false) ? _toggleButton(city) : _useButton(city),
-      child: CustomPaint(
-        child: Container(
-          width: widget.width ?? double.infinity,
-          height: widget.height ?? double.infinity,
-          constraints: BoxConstraints(maxWidth: mapSize?.width ?? 0, maxHeight: mapSize?.height ?? 0),
-          alignment: Alignment.center,
+    final bounds = city.path.getBounds();
+    Offset ortaOffset = bounds.center;
+    return Stack(
+      children: [
+        GestureDetector(
+          onTapDown: (details) {
+            selectedCity = null;
+            localPosition = details.localPosition;
+            setState(() {});
+          },
+          behavior: HitTestBehavior.deferToChild,
+          onTap: () => (widget.actAsToggle ?? false) ? _toggleButton(city) : _useButton(city),
+          child: CustomPaint(
+            child: Container(
+              width: widget.width ?? double.infinity,
+              height: widget.height ?? double.infinity,
+              constraints: BoxConstraints(maxWidth: mapSize?.width ?? 0, maxHeight: mapSize?.height ?? 0),
+              alignment: Alignment.center,
+            ),
+            isComplex: true,
+            foregroundPainter: CityPainter(
+                city: city,
+                alreadyHaveStates: widget.alreadyHaveStates,
+                comingSoonStates: widget.comingSoonStates,
+                selectedCity: selectedCity,
+                comingSoonColor: widget.comingSoonColor,
+                defaultColor: widget.defaultColor,
+                dotColor: widget.dotColor,
+                selectedColor: widget.selectedColor,
+                strokeColor: widget.strokeColor),
+          ),
         ),
-        isComplex: true,
-        
-        foregroundPainter: CityPainter(
-            city: city,
-            alreadyHaveStates: widget.alreadyHaveStates,
-            comingSoonStates: widget.comingSoonStates,
-            selectedCity: selectedCity,
-            comingSoonColor: widget.comingSoonColor,
-            defaultColor: widget.defaultColor,
-            dotColor: widget.dotColor,
-            selectedColor: widget.selectedColor,
-            strokeColor: widget.strokeColor),
-      ),
+        widget.markerWidget != null ? Positioned(top: ortaOffset.dy - 5, left: ortaOffset.dx - 5, child: widget.markerWidget!) : SizedBox()
+      ],
     );
   }
 
