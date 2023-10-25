@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:city_picker_from_map/city_picker_from_map.dart';
-import 'package:flutter_svg/svg.dart';
 
 void main() {
   runApp(MyApp());
