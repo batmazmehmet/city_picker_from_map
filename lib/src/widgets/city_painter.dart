@@ -64,7 +64,7 @@ class CityPainter extends CustomPainter {
       for (var element in comingSoonStates!) {
         if (element == city.title) {
           if (selectedCity != null && city.title == selectedCity!.title) {
-            canvas.drawPath(city.path, selectedPen);
+            return canvas.drawPath(city.path, selectedPen);
           } else {
             return canvas.drawPath(city.path, comingSoonPen);
           }

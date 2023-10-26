@@ -67,7 +67,7 @@ class _HomeViewState extends State<HomeView> {
                   color: Colors.black,
                 ),
                 comingSoonStates: const ['OH', 'MD', 'TN'],
-                alreadyHaveStates: const [],
+                alreadyHaveStates: const ['WA','LA'],
                 key: _mapKey,
                 width: double.infinity,
                 height: double.infinity,
