@@ -140,14 +140,14 @@ class CityPickerMapState extends State<CityPickerMap> {
     }
     return (widget.markerWidget != null && widget.alreadyHaveStates!.contains(city.title))
         ? (selectedCity != null && index != -1 && widget.selectedMarkerWidget != null)
-            ? Positioned(top: ortaOffset.dy - 35, left: ortaOffset.dx - 15, child: InkWell(
+            ? Positioned(top: ortaOffset.dy - 45, left: ortaOffset.dx - 25, child: InkWell(
               onTap: (() {
                   setState(() {
                     selectedCity = null;
                   });
                 }),
               child: widget.selectedMarkerWidget!))
-            : Positioned(top: ortaOffset.dy - 35, left: ortaOffset.dx - 15, child: InkWell(
+            : Positioned(top: ortaOffset.dy - 45, left: ortaOffset.dx - 25, child: InkWell(
               onTap: () {
                   _useButton(city);
                 },
