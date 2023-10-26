@@ -21,7 +21,6 @@ class CityPickerMap extends StatefulWidget {
   final Color? defaultColor;
   final double? dx;
   final double? dy;
-  final Widget? selectedWindow;
   final Color? dotColor;
   final bool? actAsToggle;
 
@@ -38,7 +37,6 @@ class CityPickerMap extends StatefulWidget {
       this.dx,
       this.dy,
       this.strokeColor,
-      this.selectedWindow,
       this.selectedColor,
       this.comingSoonColor,
       this.defaultColor,
@@ -84,14 +82,8 @@ class CityPickerMapState extends State<CityPickerMap> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        for (var city in _cityList) _buildStackItem(city),
-        if (selectedCity != null)
-          Transform.translate(
-              offset: Offset(localPosition!.dx - 100, localPosition!.dy - 125),
-              child: selectedCity != null &&
-                      ((widget.comingSoonStates!.contains(selectedCity!.title) || widget.alreadyHaveStates!.contains(selectedCity!.title)))
-                  ? widget.selectedWindow
-                  : SizedBox()),
+      for (var city in _cityList) _buildStackItem(city),
+        
 
       for (int i = 0 ; i< _cityList.length; i++) _buildStackMarkers(_cityList[i],i), 
       ],

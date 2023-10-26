@@ -60,16 +60,12 @@ class CityPainter extends CustomPainter {
     _scale = sizeController.calculateScale(size);
     canvas.scale(_scale);
 
-    for (var element in alreadyHaveStates!) {
-      if (element == city.title) {
-        return canvas.drawPath(city.path, selectedPen);
-      } else {
-        for (var element in comingSoonStates!) {
-          if (element == city.title) {
-            return canvas.drawPath(city.path, comingSoonPen);
-          } else {
-            canvas.drawPath(city.path, defaultPen);
-          }
+    if (comingSoonStates != null && comingSoonStates!.isNotEmpty) {
+      for (var element in comingSoonStates!) {
+        if (element == city.title) {
+          return canvas.drawPath(city.path, comingSoonPen);
+        } else {
+          canvas.drawPath(city.path, defaultPen);
         }
       }
     }
