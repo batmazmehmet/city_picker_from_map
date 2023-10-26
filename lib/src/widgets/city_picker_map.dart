@@ -82,16 +82,13 @@ class CityPickerMapState extends State<CityPickerMap> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-      for (var city in _cityList) _buildStackItem(city),
-        
-
-      for (int i = 0 ; i< _cityList.length; i++) _buildStackMarkers(_cityList[i],i), 
+        for (var city in _cityList) _buildStackItem(city),
+        for (int i = 0; i < _cityList.length; i++) _buildStackMarkers(_cityList[i], i),
       ],
     );
   }
 
   Widget _buildStackItem(City city) {
-
     return Stack(
       children: [
         GestureDetector(
@@ -127,25 +124,35 @@ class CityPickerMapState extends State<CityPickerMap> {
     );
   }
 
-  Widget _buildStackMarkers(City city,int _gelenIndex) {
+  Widget _buildStackMarkers(City city, int _gelenIndex) {
     final bounds = city.path.getBounds();
     Offset ortaOffset = bounds.center;
     int index = -1;
-    if(widget.alreadyHaveStates!= null&& selectedCity!=null){
-      for(int i = 0 ; i <widget.alreadyHaveStates!.length; i++ ){
-        if(widget.alreadyHaveStates!.contains(selectedCity!.title)){
-          index =_cityList.indexOf(selectedCity!);
-          if(_gelenIndex != index){
+    if (widget.alreadyHaveStates != null && selectedCity != null) {
+      for (int i = 0; i < widget.alreadyHaveStates!.length; i++) {
+        if (widget.alreadyHaveStates!.contains(selectedCity!.title)) {
+          index = _cityList.indexOf(selectedCity!);
+          if (_gelenIndex != index) {
             index = -1;
           }
         }
       }
     }
-    return (widget.markerWidget != null && widget.alreadyHaveStates!.contains(city.title)) ? 
-     (selectedCity!=null && index != -1 && widget.selectedMarkerWidget != null ) ?
-      Positioned(top: ortaOffset.dy-30 , left: ortaOffset.dx-10, child: widget.selectedMarkerWidget!)
-     :Positioned(top: ortaOffset.dy-30 , left: ortaOffset.dx-10 , child: widget.markerWidget!) :SizedBox();
-    
+    return (widget.markerWidget != null && widget.alreadyHaveStates!.contains(city.title))
+        ? (selectedCity != null && index != -1 && widget.selectedMarkerWidget != null)
+            ? Positioned(top: ortaOffset.dy - 30, left: ortaOffset.dx - 10, child: InkWell(
+              onTap: (() {
+                  setState(() {
+                    selectedCity = null;
+                  });
+                }),
+              child: widget.selectedMarkerWidget!))
+            : Positioned(top: ortaOffset.dy - 30, left: ortaOffset.dx - 10, child: InkWell(
+              onTap: () {
+                  _useButton(city);
+                },
+              child: widget.markerWidget!))
+        : SizedBox();
   }
 
   void _toggleButton(City city) {
