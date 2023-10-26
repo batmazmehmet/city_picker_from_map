@@ -63,15 +63,22 @@ class CityPainter extends CustomPainter {
     if (comingSoonStates != null && comingSoonStates!.isNotEmpty) {
       for (var element in comingSoonStates!) {
         if (element == city.title) {
-          return canvas.drawPath(city.path, comingSoonPen);
+          if (selectedCity != null && city.title == selectedCity!.title) {
+            canvas.drawPath(city.path, selectedPen);
+          } else {
+            return canvas.drawPath(city.path, comingSoonPen);
+          }
         } else {
           canvas.drawPath(city.path, defaultPen);
         }
       }
+    }else{
+      canvas.drawPath(city.path, defaultPen);
     }
-
-    if (selectedCity != null && city.title == selectedCity!.title) {
+    if (selectedCity != null && city.title == selectedCity!.title && alreadyHaveStates != null &&(alreadyHaveStates!.where((element) => element == selectedCity!.title).length > 0)) {
       canvas.drawPath(city.path, selectedPen);
+    }else{
+      canvas.drawPath(city.path, defaultPen);
     }
 
     canvas.drawCircle(bounds.center, 3.0, redDot);
