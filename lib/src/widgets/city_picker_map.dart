@@ -171,7 +171,7 @@ class CityPickerMapState extends State<CityPickerMap> {
                     selectedCity = null;
                   });
                 }),
-              child: widget.selectedMarkerWidget!)) :
+              child: widget.markerWidget!)) :
             
              Positioned(top: ortaOffset.dy - 45, left: ortaOffset.dx - 25, child: InkWell(
               onTap: () {
