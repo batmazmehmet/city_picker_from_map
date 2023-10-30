@@ -130,7 +130,7 @@ class CityPickerMapState extends State<CityPickerMap> {
     int index = -1;
     if (widget.alreadyHaveStates != null && selectedCity != null) {
       for (int i = 0; i < widget.alreadyHaveStates!.length; i++) {
-        if (widget.alreadyHaveStates!.contains(selectedCity!.title)) {
+        if (widget.alreadyHaveStates!.contains(selectedCity!.id)) {
           index = _cityList.indexOf(selectedCity!);
           if (_gelenIndex != index) {
             index = -1;
@@ -138,16 +138,42 @@ class CityPickerMapState extends State<CityPickerMap> {
         }
       }
     }
-    return (widget.markerWidget != null && widget.alreadyHaveStates!.contains(city.title))
+    return /* int.tryParse(city.id) != null && int.tryParse(city.id)! ==10 ? 
+    Positioned(top: ortaOffset.dy - 590, left: ortaOffset.dx - 25, child: InkWell(
+              onTap: (() {
+                  setState(() {
+                    selectedCity = null;
+                  });
+                }),
+              child: widget.selectedMarkerWidget!)): SizedBox();
+     */
+    
+    (widget.markerWidget != null && widget.alreadyHaveStates!.contains(city.id))
         ? (selectedCity != null && index != -1 && widget.selectedMarkerWidget != null)
-            ? Positioned(top: ortaOffset.dy - 45, left: ortaOffset.dx - 25, child: InkWell(
+            ? (selectedCity!.id =='14') ? Positioned(top: ortaOffset.dy-70, left: ortaOffset.dx+15, child: InkWell(
+              onTap: (() {
+                  setState(() {
+                    selectedCity = null;
+                  });
+                }),
+              child: widget.selectedMarkerWidget!)) 
+            : Positioned(top: ortaOffset.dy - 45, left: ortaOffset.dx - 25, child: InkWell(
               onTap: (() {
                   setState(() {
                     selectedCity = null;
                   });
                 }),
               child: widget.selectedMarkerWidget!))
-            : Positioned(top: ortaOffset.dy - 45, left: ortaOffset.dx - 25, child: InkWell(
+            :
+            (city.id =='14') ? Positioned(top: ortaOffset.dy-70, left: ortaOffset.dx+15, child: InkWell(
+              onTap: (() {
+                  setState(() {
+                    selectedCity = null;
+                  });
+                }),
+              child: widget.selectedMarkerWidget!)) :
+            
+             Positioned(top: ortaOffset.dy - 45, left: ortaOffset.dx - 25, child: InkWell(
               onTap: () {
                   _useButton(city);
                 },
