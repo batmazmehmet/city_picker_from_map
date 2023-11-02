@@ -66,18 +66,31 @@ class CityPainter extends CustomPainter {
           if (selectedCity != null && city.id == selectedCity!.id) {
             return canvas.drawPath(city.path, selectedPen);
           } else {
-            return canvas.drawPath(city.path, comingSoonPen);
+            if (alreadyHaveStates != null) {
+              for (var i = 0; i < alreadyHaveStates!.length; i++) {
+                if (alreadyHaveStates![i] != element) {
+                  return canvas.drawPath(city.path, comingSoonPen);
+                } else {
+                  canvas.drawPath(city.path, defaultPen);
+                }
+              }
+            } else {
+              return canvas.drawPath(city.path, comingSoonPen);
+            }
           }
         } else {
           canvas.drawPath(city.path, defaultPen);
         }
       }
-    }else{
+    } else {
       canvas.drawPath(city.path, defaultPen);
     }
-    if (selectedCity != null && city.id == selectedCity!.id && alreadyHaveStates != null &&(alreadyHaveStates!.where((element) => element == selectedCity!.id).length > 0)) {
+    if (selectedCity != null &&
+        city.id == selectedCity!.id &&
+        alreadyHaveStates != null &&
+        (alreadyHaveStates!.where((element) => element == selectedCity!.id).length > 0)) {
       canvas.drawPath(city.path, selectedPen);
-    }else{
+    } else {
       canvas.drawPath(city.path, defaultPen);
     }
 
