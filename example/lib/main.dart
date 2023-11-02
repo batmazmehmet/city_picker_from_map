@@ -36,7 +36,7 @@ class _HomeViewState extends State<HomeView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Selected City: ${selectedCity?.title ?? '(?)'}'),
+          title: Text('Selected City: ${selectedCity?.id ?? '(?)'}'),
           actions: [
             IconButton(
                 icon: Icon(Icons.delete, color: Colors.red),
@@ -66,8 +66,8 @@ class _HomeViewState extends State<HomeView> {
                   width: 40,
                   color: Colors.black,
                 ),
-                comingSoonStates: const ['14','1','2','3','4','5'],
-                alreadyHaveStates: const ['14'],
+                comingSoonStates: const ['14','1','2','3','4','5','6','56'],
+                alreadyHaveStates: const ['14','4','56'],
                 key: _mapKey,
                 width: double.infinity,
                 height: double.infinity,
